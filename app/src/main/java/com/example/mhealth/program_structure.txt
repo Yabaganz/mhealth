@@ -1,0 +1,33 @@
+com.mhealth/
+│
+├── data/                             # DATA LAYER: Manages all local and remote data streams
+│   ├── local/
+│   │   ├── AppDatabase.kt            # Main Room Database Instance configuration
+│   │   ├── dao/
+│   │   │   └── SymptomLogDao.kt      # Data Access Object containing raw SQL queries
+│   │   └── entity/
+│   │       └── SymptomLogEntity.kt   # Database structural schema definition
+│   └── repository/
+│       └── SymptomRepository.kt      # Truth layer orchestrating local storage vs cloud sync
+│
+├── domain/                           # DOMAIN LAYER: Encapsulates pure business and health rules
+│   ├── model/
+│   │   └── SymptomLog.kt             # Pure Kotlin Data Class used by the UI Layer
+│   └── triage/
+│       └── RiskAssessmentEngine.kt   # Contains logic loops to evaluate localized triage rules
+│
+├── background/                       # BACKGROUND LAYER: Independent OS orchestration
+│   ├── SymptomTriageWorker.kt        # WorkManager background automated triage routine
+│   └── WorkScheduler.kt              # Handles setup of periodic system triggers
+│
+├── ui/                               # PRESENTATION LAYER: User Interface and Screen Logic
+│   ├── dashboard/
+│   │   ├── DashboardScreen.kt        # Screen 1 UI (Jetpack Compose View)
+│   │   └── DashboardViewModel.kt     # Manages UI state and streams logs from repository
+│   ├── logging/
+│   │   ├── LoggingScreen.kt          # Screen 2 UI (Symptom grid and severity sliders)
+│   │   └── LoggingViewModel.kt       # Communicates form interactions down to data layer
+│   └── theme/
+│       └── Color.kt / Theme.kt       # Accessibility color specifications
+│
+└── MainApplication.kt                # Application subclass initializing background triggers
